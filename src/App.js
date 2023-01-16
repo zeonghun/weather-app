@@ -11,6 +11,7 @@ import WeatherButton from "./component/WeatherButton";
 
 function App() {
   const [weather, setWeather] = useState(null);
+  const [city, setCity] = useState("");
   const cities = ["New York", "London", "Dubai", "Seoul"];
   const getCurrentLocation = () => {
     // 현재 위치 가져오기
@@ -29,15 +30,39 @@ function App() {
     setWeather(data);
   };
 
+  const getWeatherByCity = async () => {
+    // 도시별 날씨 가져오기
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=c1bf7f1a52627b76245947adeac87b7e&units=metric`;
+    let response = await fetch(url); // API 호출
+    let data = await response.json();
+    setWeather(data);
+  };
+
+  /*
   useEffect(() => {
+    // UI가 처음에 그려지고 한 번 실행
     getCurrentLocation();
   }, []);
+
+  useEffect(() => {
+    // 배열에 있는 state 값이 바뀔 때마다 실행
+    getWeatherByCity();
+  }, [city]);
+*/
+
+  useEffect(() => {
+    if (city == "") {
+      getCurrentLocation();
+    } else {
+      getWeatherByCity();
+    }
+  }, [city]);
 
   return (
     <div>
       <div className="container">
         <WeatherBox weather={weather} />
-        <WeatherButton cities={cities} />
+        <WeatherButton cities={cities} setCity={setCity} />
       </div>
     </div>
   );
