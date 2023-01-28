@@ -44,12 +44,19 @@ function App() {
     setLoading(false);
   };
 
+  const handleCityChange = (city) => {
+    if (city == "current") {
+      setCity("");
+    } else {
+      setCity(city);
+    }
+  };
+
   /*
   useEffect(() => {
     // UI가 처음에 그려지고 한 번 실행
     getCurrentLocation();
   }, []);
-
   useEffect(() => {
     // 배열에 있는 state 값이 바뀔 때마다 실행
     getWeatherByCity();
@@ -73,7 +80,7 @@ function App() {
       ) : (
         <div className="container">
           <WeatherBox weather={weather} />
-          <WeatherButton cities={cities} setCity={setCity} />
+          <WeatherButton cities={cities} setCity={setCity} handleCityChange={handleCityChange} />
         </div>
       )}
       {/* loading이 true이면 로딩 스피너를 보여주고, false이면 날씨정보를 보여줌 */}
