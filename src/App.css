@@ -1,5 +1,5 @@
 body {
-  background: url(http://www.civicnews.com/news/photo/202003/27987_39661_02.jpg);
+  background-image: url("image/background.jpg");
   height: 100vh;
   background-repeat: no-repeat;
   background-size: cover;
